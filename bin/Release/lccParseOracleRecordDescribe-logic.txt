@@ -1,0 +1,40 @@
+lcc:configDB	[dataLink_ReplicationManager]
+lcc:configTable	[dbo].[Config_TableColumns]
+
+lcc:flagValueTableFriendlyName	SYSADM_CS.PS_TRNS_TEST_DTL
+lcc:flagValueTableName	SYSADM_CS.PS_TRNS_TEST_DTL
+
+lcc:flagValueDescribedRecordLoadFromFilePath	dataLinkReplicatedRecords-Described.txt
+lcc:flagValueRecordsListLoadFromFilePath	dataLinkReplicatedRecords.txt
+	lcc:flagValueRecordsListAutoCheck	YES
+	lcc:flagValueRecordsListToFilesAutoCheck	YES
+lcc:flagValueCreateAuto	YES
+lcc:flagValueMaximizeAuto	YES
+
+lcc:dataTypeTranslate	VARCHAR2	VARCHAR
+lcc:dataTypeTranslate	varchar2	VARCHAR
+lcc:dataTypeTranslate	NUMBER	NUMERIC
+lcc:dataTypeTranslate	number	NUMERIC
+lcc:dataTypeTranslate	TIMESTAMP	DATETIME
+lcc:dataTypeTranslate	timestamp	DATETIME
+lcc:dataTypeTranslate	FLOAT(126)	FLOAT(53)
+lcc:dataTypeTranslate	float(126)	FLOAT(53)
+lcc:dataTypeTranslate	CLOB	VARCHAR(max)
+lcc:dataTypeTranslate	clob	VARCHAR(max)
+
+
+lcc:filterOutField	ORA_ROWSCN
+lcc:filterOutField	ROW_ID
+lcc:filterOutField	ROWID
+
+lcc:dataTypeStripSize	DATETIME
+
+lcc:appendHashColumn	YES
+
+lcc:hashRecord	INSERT INTO [lccFlagValue:configDB].[lccFlagValue:configTable] (TableName,SourceTable1,ColumnName,ColumnDetails,SortOrder,Metadata,ColumnEnabled) VALUES ('[lccFlagValue:tableFriendlyName]','[lccFlagValue:tableName]','HASHVALUE','[lccFlagValue:hashValue]','0','','1');
+
+lcc:top	DELETE FROM [lccFlagValue:configDB].[lccFlagValue:configTable] WHERE SourceTable1='[lccFlagValue:tableName]';
+
+lcc:perRecord	INSERT INTO [lccFlagValue:configDB].[lccFlagValue:configTable] (TableName,SourceTable1,ColumnName,ColumnDetails,SortOrder,Metadata,ColumnEnabled) VALUES ('[lccFlagValue:tableFriendlyName]','[lccFlagValue:tableName]','[lccFlagValue:columnName]','[lccFlagValue:dataType] [lccFlagValue:dataNull]','[lccFlagValue:columnNumber]','','1');
+
+	lcc:bottom	bottom...
