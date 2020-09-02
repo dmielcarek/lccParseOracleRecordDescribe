@@ -290,6 +290,7 @@ namespace lccParseOracleRecordDescribe
                                     {
                                         lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop].Count - 1].lccSName = lccSBColumnValue.ToString().Trim();
                                         lccSBColumnValue.Length = 0;
+                                        //MessageBox.Show("Name: "+lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop].Count - 1].lccSName);
                                     }
                                     else if (lccICharsLoop == lccALColumnsLength[lccIRecordSetsLoop][1])
                                     {
@@ -299,11 +300,13 @@ namespace lccParseOracleRecordDescribe
                                             lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop].Count - 1].lccSNull = "NULL";
                                         }
                                         lccSBColumnValue.Length = 0;
+                                        //MessageBox.Show("Null: "+lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop].Count - 1].lccSNull);
                                     }
                                     else if (lccICharsLoop == lccALColumnsLength[lccIRecordSetsLoop][2] || lccICharsLoop == lccALLinesSplit[lccILinesLoop].Length - 1)
                                     {
                                         lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop].Count - 1].lccSType = lccFDataTypesTranslate(lccSBColumnValue.ToString().Trim());
                                         lccSBColumnValue.Length = 0;
+                                        //MessageBox.Show("Type: "+lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop].Count - 1].lccSType);
                                     }
                                 }
                             }
@@ -335,6 +338,7 @@ namespace lccParseOracleRecordDescribe
                                 {
                                     for (lccIPerRecordLoop = 0; lccIPerRecordLoop < lccSCSettings.lccLogicInfo.lccALPerRecord.Count; lccIPerRecordLoop++)
                                     {
+                                        //lccSBOutput.Append(lccFReplaceFlags(lccSCSettings.lccLogicInfo.lccALPerRecord[lccIPerRecordLoop], lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSName, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSType, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSNull, lccIColumnsLoop.ToString()) + "\r\n");
                                         lccSCSettings.lccALSQLExportRows[lccSCSettings.lccALSQLExportRows.Count - 1].Add(lccFReplaceFlags(lccSCSettings.lccLogicInfo.lccALPerRecord[lccIPerRecordLoop], lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSName, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSType, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSNull, lccIColumnsLoop.ToString()) + "\r\n");
                                     }
                                     lccIColumnsLoop++;
@@ -360,12 +364,14 @@ namespace lccParseOracleRecordDescribe
                                 lccSBAppendHash.Append(lccSBAppendHashInner.ToString());
                                 lccSBAppendHash.Append(")) as varbinary(20)) PERSISTED");
                                 lccSHashRecordTemp = lccSCSettings.lccSHashRecord.Replace("[lccFlagValue:hashValue]", lccSBAppendHash.ToString());
+                                //lccSBOutput.Append(lccFReplaceFlags(lccSHashRecordTemp, "", "", "", "0") + "\r\n");
                                 lccSCSettings.lccALSQLExportRows[lccSCSettings.lccALSQLExportRows.Count - 1].Add(lccFReplaceFlags(lccSHashRecordTemp, "", "", "", "0") + "\r\n");
                             }
 
 
                             for (lccIBottomLoop = 0; lccIBottomLoop < lccSCSettings.lccLogicInfo.lccALBottom.Count; lccIBottomLoop++)
                             {
+                                //lccSBOutput.Append(lccFReplaceFlags(lccSCSettings.lccLogicInfo.lccALBottom[lccIBottomLoop], lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSName, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSType, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSNull, lccIColumnsLoop.ToString()) + "\r\n");
                                 lccSCSettings.lccALSQLExportRows[lccSCSettings.lccALSQLExportRows.Count - 1].Add(lccFReplaceFlags(lccSCSettings.lccLogicInfo.lccALBottom[lccIBottomLoop], lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSName, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSType, lccSCSettings.lccALFieldsSchema[lccIRecordSetsLoop][lccIRecordsLoop].lccSNull, lccIColumnsLoop.ToString()) + "\r\n");
                             }
                         }
@@ -501,7 +507,8 @@ namespace lccParseOracleRecordDescribe
                                 {
                                     lccIDashesFound++;
                                 }
-                                else if (lccALLinesSplit[lccILinesLoop][lccICharsLoop] == ' ')
+                                else if (lccALLinesSplit[lccILinesLoop][lccICharsLoop] == ' '
+                                    && lccIDashesFound>0)
                                 {
                                     if (lccICharsLoop > 0)
                                     {
@@ -536,6 +543,7 @@ namespace lccParseOracleRecordDescribe
                                 lccSCSettings.lccALDescribedRecords.Add(new List<string>());
                                 lccILinesRecordsStartPos.Add(0);
                                 lccILinesRecordsStartPos[lccILinesRecordsStartPos.Count - 1] = lccILinesLoop + 1;
+                                //MessageBox.Show("lccIColumnsLengths: " + lccIColumnsLengths.ToString());
                                 if (lccCbxCreateSQLRecordsList.Checked == true)
                                 {
                                     lccIColumnsLengths = 0;
@@ -568,7 +576,7 @@ namespace lccParseOracleRecordDescribe
                         && lccILinesRecordsStartPos.Count != lccALRecordsList.Count)
                     {
                         lccBAbortFunction = true;
-                        MessageBox.Show("Sorry, could not find enough column header separator lines.\r\nFound [" + lccILinesRecordsStartPos.Count.ToString() + "] headers for [" + lccALRecordsList.Count.ToString() + "] Records in the Records List.\r\n\r\nThey should look something like this:\r\n----------------------- -------- ------------\r\n\r\nAnd should be before any Field lines.");
+                        MessageBox.Show("Sorry, could not find the right number of column header separator lines.\r\nFound [" + lccILinesRecordsStartPos.Count.ToString() + "] headers for [" + lccALRecordsList.Count.ToString() + "] Records in the Records List.\r\n\r\nThey should look something like this:\r\n----------------------- -------- ------------\r\n\r\nAnd should be before any Field lines.");
                     }
                 }
             }
